@@ -1,0 +1,64 @@
+{
+    "karyawan": [
+        {
+            "posisi": "Web Developer",
+            "nama": "Adam Muslim",
+            "alamat": "Jakarta",
+            "email": "adam@mail.com"          
+        },
+        {
+            "posisi": "System Analist",
+            "nama": "Esa Santana",
+            "alamat": "Jakarta",
+            "email": "esa@mail.com"
+        },
+        {
+            "posisi": "Network Specialist",
+            "nama": "Ryan Branch",
+            "alamat": "Bandung",
+            "email": "ryan@mail.com"
+        },
+        {
+            "posisi": "System Administrator",
+            "nama": "Cahaya Purnama",
+            "alamat": "Malang",
+            "email": "cahaya@mail.com"
+        },
+        {
+            "posisi": "IT Staff",
+            "nama": "Leo Singaraja",
+            "alamat": "Lampung",
+            "email": "leo@mail.com"
+        },
+        {
+            "posisi": "IT Strategist",
+            "nama": "Pep Guardiola",
+            "alamat": "Surabaya",
+            "email": "usman@mail.com"
+        },
+        {
+            "posisi": "IT Planner",
+            "nama": "Deby Debora",
+            "alamat": "Bandung",
+            "email": "deby@mail.com"
+        },
+        {
+            "posisi": "CIO",
+            "nama": "Linus Thor",
+            "alamat": "Surabaya",
+            "email": "linus@mail.com"
+        },
+        {
+            "posisi": "Security Specialist",
+            "nama": "Kali Code",
+            "alamat": "Jogja",
+            "email": "xcode@mail.com"
+        },
+        {
+            "posisi": "Presiden Director",
+            "nama": "Steven Chou",
+            "alamat": "Jakarta",
+            "email": "steve@mail.com"
+        }
+    ]
+}
