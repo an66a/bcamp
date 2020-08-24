@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+    
+        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+      <!-- Add Firebase products that you want to use -->
+ 
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- MDBootstrap Datatables  -->
+  <script src="config.js"></script>
+<script src="tiket.js"></script>
+    <!-- MDBootstrap Datatables  -->
+    <title>Tiket | Parkir App</title>
+  </head>
+<body>
+  
+<div class="d-flex justify-content-center" style="margin-top: 150px;">
+
+  <div class="card text-white bg-default mb-3">
+    <div class="card-header text-center">Tiket Generator</div>
+    <div class="card-body">
+      <form action="#" onsubmit="return false" class="text-center" id="tiket-generator">
+        <div class="form-group">
+          <label for="no_tiket">No. Tiket</label>
+          <input type="number" class="form-control text-center gen-tiket" id="no_tiket" autocomplete="off" name='no_tiket'>
+        </div>  
+        <div class="form-group">
+          <label for="plat_nomor">Jam Masuk</label>
+          <input type="text" class="form-control text-center gen-tiket" id="waktu_masuk" autocomplete="off" name="waktu_masuk">
+        </div>
+ 
+      </form>  
+      <div class="text-center" style="padding-top: 10px;"> <button class="btn btn-danger" onclick="parkingHandlerIn()">Tiket</button>   </div>
+         
+    </div>
+  </div>
+
+</div>
+ <!-- jQuery -->
+ <script type="text/javascript" src="js/jquery.min.js"></script>
+ <!-- Bootstrap tooltips -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+ <!-- Bootstrap core JavaScript -->
+ <script type="text/javascript" src="js/bootstrap.min.js"></script>
+ <!-- MDB core JavaScript -->
+ <script type="text/javascript" src="js/mdb.min.js"></script>
+ <!-- Your custom scripts (optional) -->
+ 
+
+  </body>
+</html>

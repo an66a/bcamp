@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+    
+        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+      <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>        
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" /> -->
+   <!-- MDB icon -->
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="config.js"></script>
+    
+    <script src="login.js" defer></script>    
+
+
+    <title>Hai Dokter | Login</title>
+  </head>
+  <body>
+
+<div class="display" >
+     <!-- DISPLAY --> 
+
+</div>      
+
+
+
+
+
+
+
+<!-- Modal Login -->
+
+<div class="modal fade asd" id="loginForm" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Hai Dokter</h4>
+          </div>
+      <div class="modal-body mx-3">      
+        <div class="md-form mb-2">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <input type="email" id="email_text" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
+        </div>
+
+        <div class="md-form mb-2">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <input type="password" id="password_text" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-pass">Kata Sandi</label>
+        </div>
+        
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-default mr-2" id="login">Login</button>
+        <button class="btn btn-deep-orange"  data-toggle="modal" data-target="#modalRegisterForm">Daftar</button>
+      </div>      
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- MODAL REGISTER -->
+  <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Daftar</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix grey-text"></i>
+          <input type="text" id="userName" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Nama Lengkap</label>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fas fa-home prefix grey-text"></i>
+          <input type="text" id="userAddress" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Alamat</label>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fas fa-calendar prefix grey-text"></i>
+          <input type="date" id="userDate" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Tanggal Lahir</label>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fas fa-phone prefix grey-text"></i>
+          <input type="number" id="userContact" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-email">Kontak</label>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <input type="email" id="userEmail" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
+        </div>
+
+        <div class="md-form mb-5">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <input type="password" id="userPass" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-pass">Kata Sandi</label>
+        </div>
+     
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-deep-orange" id="signUp">Sign up</button>
+      </div>
+    </div>
+  </div>
+</div>  
+
+
+<button class="btn btn-deep-orange" id="logout" style="float: right;">LOG OUT</button>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+ <!-- jQuery -->
+ <script type="text/javascript" src="js/jquery.min.js"></script>
+ <!-- Bootstrap tooltips -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+ <!-- Bootstrap core JavaScript -->
+ <script type="text/javascript" src="js/bootstrap.min.js"></script>
+ <!-- MDB core JavaScript -->
+ <script type="text/javascript" src="js/mdb.min.js"></script>
+
+  </body>
+</html>
