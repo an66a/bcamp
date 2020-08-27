@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+   <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>G2 | Academy</title>
+  </head>
+  <body>
+    
+    <div class="flex-main">
+        <div class="menu bg-dark text-white">
+<h2 class="compname pb-5 pt-4"><i class='fab fa-mix fa-fw'></i>Menejer</h2>
+
+<div id="side-menu">
+
+
+            <ul class="nav flex-column nav-pills">
+                <li class="nav-item">
+                  <a class="nav-link active" href="index.html"><i class='fas fa-home fa-fw'></i> Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" onclick="changePageA()"><i class='far fa-edit fa-fw'></i> Form Karyawan</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" onclick="changePageB()"><i class='far fa-address-card fa-fw'></i> Data Karyawan</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" onclick="changePageC()"><i class='fas fa-sitemap fa-fw'></i> Daftar Divisi</a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <div class="content">
+            
+            <div class="container" id="homePage">
+                <h1 class="compname pt-5" style="margin-bottom: 100px;"><i class='fab fa-mix fa-fw'></i>Menejer Dashboard</h1>
+                
+                <div class="card-deck" id="home-menu">
+                    
+                    <div class="card bg-primary">
+                      <div class="card-body text-center">
+                        <i class='far fa-edit fa-fw fa-10x'></i>
+                        <a href="#" class="btn stretched-link" onclick="changePageA()">Form Karyawan</a>
+                      </div>
+                    </div>
+                    
+                    <div class="card bg-primary">
+                      <div class="card-body text-center">
+                        <i class='far fa-address-card fa-fw fa-10x'></i>
+                        <a href="#" class="btn stretched-link" onclick="changePageB()">Data Karyawan</a>
+                    
+                      </div>
+                    </div>
+                    <div class="card bg-primary">
+                      <div class="card-body text-center">
+                        <i class='fas fa-sitemap fa-fw fa-10x'></i>
+                        <a href="#" class="btn stretched-link" onclick="changePageC()">Daftar Divisi</a>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div id="formPage" style="display: none;">
+                <div class="container">
+                <h2>Form Karyawan</h2> 
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label>Nama Lengkap</label>
+                                <input type="text" class="form-control" placeholder="Nama">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" class="form-control" placeholder="Email">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>Alamat</label>
+                              <input type="text" class="form-control" placeholder="Alamat">
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label>Email</label>
+                                <input type="email" class="form-control">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label>Jabatan</label>
+                                <select class="form-control">
+                                  <option selected>Choose...</option>
+                                  <option>IT Staff</option>
+                                  <option>IT Strategist</option>
+                                  <option>IT Planner</option>
+                                  <option>System Analist</option>
+                                  <option>System Administrator</option>
+                                  <option>Security Specialist</option>
+                                  <option>Network Specialist</option>
+                                  <option>Web Developer</option>
+                                </select>
+                              </div>
+                         
+                            </div>
+                         
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form>
+                    </div>
+                  </div>
+            </div>
+            </div>
+            <div id="karyawanPage" style="display: none;">
+                <div class="container">
+                    <h2>Data Karyawan</h2>  
+                           
+                    <table class="table table-hover" id="data-karyawan">
+                      <thead>
+                        <tr>
+                          <th>Posisi</th>
+                          <th>Nama</th>
+                          <th>Alamat</th>
+                          <th>Email</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+            <div class="container" id="divisiPage" style="display: none;">
+                <h2>Daftar Divisi</h2>
+                <hr>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <div id="chart_div"></div>
+             
+            </div>
+
+        </div>
+      </div> 
+  
+  
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  
+</body>
+</html>
