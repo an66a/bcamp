@@ -1,0 +1,130 @@
+import React, { Component } from 'react'
+import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import Input from './elements/Input'
+import { userLogin, userSignUp } from '../actions/userAction';
+import { connect } from 'react-redux';
+
+
+class AuthComp extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            username: '',
+            password: '',
+            repassword: ''
+        }
+    }
+
+
+    render() {
+        let btn;
+        let btn2;
+        let sign;
+        let place;
+
+        if (this.props.register) {
+            btn = 'SIGN UP'
+            btn2 = 'LOGIN'
+            sign = userSignUp;
+            place = 'Login'
+        } else {
+            btn = 'LOGIN'
+            btn2 = 'SIGN UP'
+            sign = userLogin;
+            place = 'Register'
+        }
+        const doSign = () => {
+            const { username, password, repassword } = this.state
+            if (this.props.repass) {
+                if (username == '' || password == '' || repassword == '') {
+                    alert("Please fill out all fields.")
+                    return
+                } else if (password !== repassword) {
+                    alert('Passwords do not match.')
+                    return
+                }
+            } else {
+                if (username == '' || password == '') {
+                    alert("Please fill out all fields.")
+                    return
+                }
+            }
+            this.props.dispatch(sign(username, password));
+            this.setState({ username: '', password: '', repassword: '' })
+        }
+        return (
+            <SafeAreaView style={styles.container}>
+                <View >
+                    <Text style={styles.logo}>Just Basic</Text>
+                </View>
+                <Input placeholder='Username' value={this.state.username} set={e => this.setState({ username: e })} />
+                <Input placeholder='Password' value={this.state.password} set={e => this.setState({ password: e })} scr={this.props.hidepass} />
+                {this.props.repass ?
+                    <Input placeholder='Retype Password' value={this.state.repassword} set={e => this.setState({ repassword: e })} scr={this.props.hidepass} />
+                    : null}
+                <TouchableOpacity style={styles.inputBtn} onPress={() => doSign()}>
+                    <Text style={styles.btnTitle}>{btn}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.inputBtn2} onPress={() => this.props.nav.navigate(place)}>
+                    <Text style={styles.btnTitle2}>{btn2}</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
+
+
+        )
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#00ffc3',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    marginB: {
+        marginBottom: 10
+    },
+    marginText: {
+        marginTop: 20,
+        color: 'black'
+    },
+    logo: {
+        fontWeight: 'bold',
+        fontSize: 50,
+        color: '#00a2ff',
+        marginBottom: 50
+    },
+    btnTitle: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    btnTitle2: {
+        color: '#00a2ff',
+        fontWeight: 'bold',
+    },
+    inputBtn: {
+        width: '80%',
+        backgroundColor: '#00a2ff',
+        borderRadius: 10,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+        marginBottom: 0
+    },
+    inputBtn2: {
+        width: '80%',
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+        marginBottom: 0
+    }
+
+})
+
+export default connect()(AuthComp)
