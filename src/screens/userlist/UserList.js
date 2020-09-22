@@ -6,7 +6,6 @@ import SplashScreen from '../SplashScreen'
 import { getUserList } from '../../actions/dataAction'
 class UserList extends Component {
     state = {
-            isLoading: false,
             isLoad: false
         }
     componentDidMount() {
@@ -30,7 +29,7 @@ this.props.getUserList()
         return (
             <FlatList
                 style={styles.container}
-                data={this.props.UserList}
+                data={this.props.userList}
                 renderItem={this.renderRow}
                 keyExtractor={(item, index) => index.toString()}
                 onEndReached={this.handleLoadMore}
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
 })
 const mapStateToProps = (state) => {
     return {
-        UserList: state.data.UserList
+        userList: state.user.getUserList
     }
 }
 const mapDispatchToProps = (dispatch) => {

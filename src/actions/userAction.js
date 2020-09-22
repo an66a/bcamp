@@ -5,6 +5,7 @@ import { Alert } from "react-native";
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const GET_USER_LIST = 'GET_USER_LIST';
 
 const secretKey = 'keep-it-a-secret'
 
@@ -15,7 +16,6 @@ export const userSignUp = (username, password) => {
     }
     AsyncStorage.getItem('usersData')
       .then(e => {
-        console.log(e);
         let usersData = []
         if (e !== null) {
           const data = CryptoJS.AES.decrypt(e, secretKey);
@@ -25,10 +25,9 @@ export const userSignUp = (username, password) => {
         for (let i = 0; i < usersData.length; i++) {
           let usd = usersData[i]
           if (usd.username == username) {
-            alert('Username already redgistered.')
+            alert('Username already registered.')
             return;
           }
-          
         }
         const user = { username, password }
         usersData.push(user)
@@ -47,8 +46,7 @@ export const userSignUp = (username, password) => {
 export const userLogin = (username, password) => {
   return (dispatch) => {
     AsyncStorage.getItem('usersData')
-      .then(async (e) => {
-        console.log(e);
+      .then(e => {
         let usersData = []
         if (e !== null) {
           const data = CryptoJS.AES.decrypt(e, secretKey);
@@ -57,13 +55,13 @@ export const userLogin = (username, password) => {
         }
         for (let i = 0; i < usersData.length; i++) {
           let usd = usersData[i]
-          if (usd.username == username) {
+        if (usd.username == username) {
             if (usd.password == password) {
               dispatch({
                 type: USER_LOGIN
               })
               AsyncStorage.setItem('user', username)
-              let user = await AsyncStorage.getItem('user')
+              let user =  AsyncStorage.getItem('user')
               console.log('user: ' + user);
               return
             } else {
@@ -87,9 +85,9 @@ export const userLogin = (username, password) => {
 }
 
 export const userLogout = () => {
-  return async (dispatch) => {
+  return (dispatch) => {
     AsyncStorage.removeItem('user')
-    let user = await AsyncStorage.getItem('user')
+    let user = AsyncStorage.getItem('user')
     console.log('user: ' + user);
     dispatch({
       type: USER_LOGOUT
@@ -98,9 +96,9 @@ export const userLogout = () => {
 }
 
 export const userState = () => {
-  return async (dispatch) => {
+  return (dispatch) => {
     AsyncStorage.getItem('user')
-    let user = await AsyncStorage.getItem('user')
+    let user = AsyncStorage.getItem('user')
     if (user !== null) {
       console.log('user: ' + user);
       dispatch({
@@ -113,5 +111,19 @@ export const userState = () => {
       })
     }
 
+  }
+}
+export const getUserList = () => {
+  return (dispatch) => {
+    AsyncStorage.getItem('usersData')
+      .then(e => {
+        var userData = JSON.parse(e)
+        dispatch({
+          type: GET_USER_LIST,
+          payload: {
+            data: userData
+          }
+        })
+      })
   }
 }

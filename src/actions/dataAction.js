@@ -6,7 +6,7 @@ export const LOAD_DATA = 'LOAD_DATA';
 export const GET_ALBUM_LIST = 'GET_ALBUM_LIST';
 export const GET_ALBUM_SQL = 'GET_ALBUM_SQL';
 export const GET_PHOTO_LIST = 'GET_PHOTO_LIST';
-export const GET_USER_LIST = 'GET_USER_LIST';
+
 
 export const unMount = () => {
   return (dispatch) => {
@@ -42,20 +42,7 @@ export const getPhotoList = (id) => {
       )
   }
 }
-export const getUserList = () => {
-  return (dispatch) => {
-    AsyncStorage.getItem('usersData')
-      .then(e => {
-        var userData = JSON.parse(e)
-        dispatch({
-          type: GET_USER_LIST,
-          payload: {
-            data: userData
-          }
-        })
-      })
-  }
-}
+
 
 const exeQuery = (sql, params = []) => new Promise((resolve, reject) => {
   db.transaction(trans => {
