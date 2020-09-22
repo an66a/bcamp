@@ -6,12 +6,12 @@ const Tabs = createMaterialTopTabNavigator();
 
 const LoginScreen = ({ navigation }) => {
     return (
-        <AuthComp  nav={navigation} />
+        <AuthComp hidepass nav={navigation} />
     )
 }
 const RegisterScreen = ({ navigation }) => {
     return (
-        <AuthComp register nav={navigation} />
+        <AuthComp hidepass repass register nav={navigation} />
     )
 }
 const AuthScreen = () => {

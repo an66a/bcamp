@@ -4,8 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator, DrawerItem, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { AuthScreen, AlbumScreen, UserProfile, SplashScreen, UserListScreen, SqAlbumScreen } from './'
 import { userState, userLogout } from '../actions/userAction';
-import { Button, View, Text } from 'react-native';
-import { Icon } from 'react-native-elements';
 
 const Drawer = createDrawerNavigator();
 

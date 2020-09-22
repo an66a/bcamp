@@ -23,14 +23,6 @@ this.props.getUserList()
             </View>
         )
     }
-    // renderFooter = () => {
-    //     return (
-    //         this.state.isLoading ?
-    //             <View style={styles.loader}>
-    //                 <ActivityIndicator size='large' />
-    //             </View> : null
-    //     )
-    // }
     render() {
         if (this.state.isLoad) {
             return <SplashScreen />;
