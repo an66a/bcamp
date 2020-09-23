@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import CryptoJS from 'crypto-js';
+import { getFingerprint, getDevice, getDeviceId, getUniqueId, getMacAddress } from 'react-native-device-info';
 
 const cryptoKey = 'keep-it-a-secret'; //Crypto Key
 export const usrd = 'usersData'; //AsyncStorage usersData
@@ -7,7 +8,7 @@ export const usrt = 'userToken'; //AsyncStorage userToken
 
 export const checkUserData = () => {
     return () => {
-        getStorage(usrd)
+        getStorage(usrt)
             .then(e => { console.log(e); })
     }
 }
@@ -31,10 +32,22 @@ export const getStorage = (key) => {
 export const saveStorage = (key, value) => {
     const encrypted = CryptoJS.AES.encrypt(JSON.stringify(value), cryptoKey)
     const data = encrypted.toString()
-    AsyncStorage.setItem(key, data)
+    AsyncStorage.setItem(key, data).catch(err => { console.log(err); })
 }
 
-export const checkUser = (username, password, login) => {
+export const createUserToken = async (username) => {
+    let deviceId = await getDeviceId();
+    let fingerprint = await getFingerprint();
+    let device = await getDevice();
+    let uniqueId = await getUniqueId();
+    let macaddress = await getMacAddress();
+    let user = { user: { username, uid: { deviceId, fingerprint, uniqueId, macaddress, device } } }
+    return (
+        saveStorage(usrt, user)
+    )
+}
+
+export const checkUser = (username, password, method) => {
     if (username === '' || password === '') {
         return
     }
@@ -45,10 +58,11 @@ export const checkUser = (username, password, login) => {
                 for (let i = 0; i < e.length; i++) {
                     let user = e[i]
                     if (user.username === username) {
-                        result = '';
+                        result = true;
                         if (password) {
                             if (user.password === password) {
-                                return result = 'match'
+                                createUserToken(username)
+                                return result = true;
                             }
                         }
                         return
@@ -56,6 +70,5 @@ export const checkUser = (username, password, login) => {
                 }
                 return result
             })
-            .catch(err => { })
     )
 }

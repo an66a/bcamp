@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import { Alert } from "react-native";
 import { getStorage, saveStorage, checkUser, usrd, usrt } from './actionHelper';
+import { getFingerprint, getDevice, getDeviceId, getUniqueId, getMacAddress } from 'react-native-device-info';
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
@@ -22,9 +23,7 @@ export const userSignUp = (username, password) => {
               text: "close", style: "cancel"
             }])
           })
-          .catch(err => { })
       })
-      .catch(err => { })
   }
 }
 
@@ -32,17 +31,13 @@ export const userLogin = (username, password) => {
   return (dispatch) => {
     checkUser(username, password)
       .then(e => {
-        console.log(e);
-        if (e !== 'match') {
+        if (e !== true) {
           return alert('Wrong password.')
         }
         dispatch({
           type: USER_LOGIN
         })
-        let user = { user: { username } }
-        saveStorage(usrt, user)
       })
-      .catch(err => { })
   }
 }
 
@@ -70,19 +65,17 @@ export const userState = () => {
         })
       }
     })
-
   }
 }
+
 export const getUserList = () => {
   return (dispatch) => {
     getStorage(usrd)
       .then(e => {
-        console.log(e);
-        let data = e
         dispatch({
           type: GET_USER_LIST,
           payload: {
-            data: data
+            data: e
           }
         })
       })
