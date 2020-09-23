@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Input from './elements/Input'
-import { userLogin, userSignUp } from '../actions/userAction';
+import { userLogin, userSignUp, userState } from '../actions/userAction';
+import { checkUserData } from '../actions/actionHelper';
 import { useDispatch } from 'react-redux';
 
 const AuthComp = (props) => {
     const dispatch = useDispatch()
-    const [form, set] = useState({
+    const [state, set] = useState({
         username: '',
         password: '',
-        repassword: ''
+        repassword: '',
+        showUsers: true
     });
     const reset = () => {
         set({
+            ...state,
             username: '',
             password: '',
             repassword: ''
@@ -35,7 +38,7 @@ const AuthComp = (props) => {
     }
 
     const doSign = () => {
-        const { username, password, repassword } = form
+        const { username, password, repassword } = state
         if (props.repass) {
             if (username == '' || password == '' || repassword == '') {
                 alert("Please fill out all fields.")
@@ -53,23 +56,27 @@ const AuthComp = (props) => {
         dispatch(sign(username, password));
         reset()
     }
-   
     return (
         <SafeAreaView style={styles.container}>
             <View >
                 <Text style={styles.logo}>Just Basic</Text>
             </View>
-            <Input placeholder='Username' value={form.username} set={(e) => set({ ...form, username: e })} />
-            <Input placeholder='Password' value={form.password} set={(e) => set({ ...form, password: e })} scr={props.hidepass} />
+            <Input placeholder='Username' value={state.username} set={(e) => set({ ...state, username: e })} />
+            <Input placeholder='Password' value={state.password} set={(e) => set({ ...state, password: e })} scr={props.hidepass} />
             {props.repass ?
-                <Input placeholder='Retype Password' value={form.repassword} set={(e) => set({ ...form, repassword: e })} scr={props.hidepass} />
+                <Input placeholder='Retype Password' value={state.repassword} set={(e) => set({ ...state, repassword: e })} scr={props.hidepass} />
                 : null}
             <TouchableOpacity style={styles.inputBtn} onPress={() => doSign()}>
                 <Text style={styles.btnTitle}>{btn}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.inputBtn2} onPress={() => props.nav.navigate(to)}>
+            <TouchableOpacity style={styles.inputBtn2} onPress={() => props.nav.navigate(to)} onLongPress={() => set({ ...state, showUsers: true })}>
                 <Text style={styles.btnTitle2}>{btn2}</Text>
             </TouchableOpacity>
+            {state.showUsers ?
+                <TouchableOpacity style={styles.inputBtn2} onPress={() => dispatch(checkUserData())}>
+                    <Text style={styles.btnTitle2}>Log Userdata</Text>
+                </TouchableOpacity>
+                : null}
         </SafeAreaView>
     )
 }

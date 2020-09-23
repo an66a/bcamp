@@ -3,7 +3,7 @@ import { View, FlatList, StyleSheet, Text, ActivityIndicator } from 'react-nativ
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import SplashScreen from '../SplashScreen'
-import { getUserList } from '../../actions/dataAction'
+import { getUserList } from '../../actions/userAction'
 class UserList extends Component {
     state = {
             isLoad: false

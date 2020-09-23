@@ -11,7 +11,7 @@ const LoginScreen = ({ navigation }) => {
 }
 const RegisterScreen = ({ navigation }) => {
     return (
-        <AuthComp hidepass repass register nav={navigation} />
+        <AuthComp hidepass register nav={navigation} />
     )
 }
 const AuthScreen = () => {

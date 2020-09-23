@@ -1,94 +1,77 @@
 import AsyncStorage from "@react-native-community/async-storage";
-import CryptoJS from 'crypto-js';
-
 import { Alert } from "react-native";
+import { getStorage, saveStorage, checkUser, usrd, usrt } from './actionHelper';
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const GET_USER_LIST = 'GET_USER_LIST';
 
-const secretKey = 'keep-it-a-secret'
-
 export const userSignUp = (username, password) => {
-  return (dispatch) => {
-    if (username === '' || password === '') {
-      return;
-    }
-    AsyncStorage.getItem('usersData')
+  return () => {
+    checkUser(username)
       .then(e => {
-        let usersData = []
         if (e !== null) {
-          const data = CryptoJS.AES.decrypt(e, secretKey);
-          const decrypted = data.toString(CryptoJS.enc.Utf8);
-          usersData = JSON.parse(decrypted)
+          return alert('Username already registered.');
         }
-        for (let i = 0; i < usersData.length; i++) {
-          let usd = usersData[i]
-          if (usd.username == username) {
-            alert('Username already registered.')
-            return;
-          }
-        }
-        const user = { username, password }
-        usersData.push(user)
-        const encrypted = CryptoJS.AES.encrypt(JSON.stringify(usersData), secretKey)
-        const string = encrypted.toString()
-        AsyncStorage.setItem('usersData', string)
-        Alert.alert('Registration Succes', 'Welcome ' + username, [{
-          text: "close", style: "cancel"
-        }])
-
+        getStorage(usrd)
+          .then(storage => {
+            const user = { username, password }
+            storage.push(user)
+            saveStorage(usrd, storage)
+            Alert.alert('Registration Succes', 'Welcome ' + username, [{
+              text: "close", style: "cancel"
+            }])
+          })
+          .catch(err => { })
       })
-
+      .catch(err => { })
   }
 }
 
 export const userLogin = (username, password) => {
   return (dispatch) => {
-    AsyncStorage.getItem('usersData')
+    checkUser(username, password)
       .then(e => {
-        let usersData = []
-        if (e !== null) {
-          const data = CryptoJS.AES.decrypt(e, secretKey);
-          const decrypted = data.toString(CryptoJS.enc.Utf8);
-          usersData = JSON.parse(decrypted)
+        console.log(e);
+        if (e !== 'match') {
+          return alert('Wrong password.')
         }
-        for (let i = 0; i < usersData.length; i++) {
-          let usd = usersData[i]
-        if (usd.username == username) {
-            if (usd.password == password) {
-              dispatch({
-                type: USER_LOGIN
-              })
-              AsyncStorage.setItem('user', username)
-              let user =  AsyncStorage.getItem('user')
-              console.log('user: ' + user);
-              return
-            } else {
-              alert('Wrong password')
-            }
-            return
-          }
-        }
-        for (let i = 0; i < usersData.length; i++) {
-          let usd = usersData[i]
-          if (usd.username != username) {
-            alert('User not registered')
-            return
-          }
-        }
+        dispatch({ type: USER_LOGIN })
+        saveStorage(usrt, username)
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => { })
+    // let usersData = await getStorage('usersData')
+    // for (let i = 0; i < usersData.length; i++) {
+    //   let usd = usersData[i]
+    //   if (usd.username == username) {
+    //     if (usd.password == password) {
+    //       dispatch({
+    //         type: USER_LOGIN
+    //       })
+    //       AsyncStorage.setItem('user', username)
+    //       let user = AsyncStorage.getItem('user')
+    //       console.log('user: ' + user);
+    //       return
+    //     } else {
+    //       alert('Wrong password')
+    //     }
+    //     return
+    //   }
+    // }
+    // for (let i = 0; i < usersData.length; i++) {
+    //   let usd = usersData[i]
+    //   if (usd.username != username) {
+    //     alert('User not registered')
+    //     return
+    //   }
+    // }
+
   }
 }
 
 export const userLogout = () => {
   return (dispatch) => {
-    AsyncStorage.removeItem('user')
-    let user = AsyncStorage.getItem('user')
-    console.log('user: ' + user);
+    AsyncStorage.removeItem(usrt)
     dispatch({
       type: USER_LOGOUT
     })
@@ -96,9 +79,9 @@ export const userLogout = () => {
 }
 
 export const userState = () => {
-  return (dispatch) => {
-    AsyncStorage.getItem('user')
-    let user = AsyncStorage.getItem('user')
+  return async (dispatch) => {
+    let user = await AsyncStorage.getItem('user')
+    // console.log(user);
     if (user !== null) {
       console.log('user: ' + user);
       dispatch({
