@@ -25,7 +25,7 @@ const user = (state = initialState,  action) => {
         case GET_USER_LIST:
           return{
             ...state,
-           getUserList: data
+           getUserList: action.payload.data
           }
       default:
         return state      

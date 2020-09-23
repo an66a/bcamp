@@ -36,36 +36,13 @@ export const userLogin = (username, password) => {
         if (e !== 'match') {
           return alert('Wrong password.')
         }
-        dispatch({ type: USER_LOGIN })
-        saveStorage(usrt, username)
+        dispatch({
+          type: USER_LOGIN
+        })
+        let user = { user: { username } }
+        saveStorage(usrt, user)
       })
       .catch(err => { })
-    // let usersData = await getStorage('usersData')
-    // for (let i = 0; i < usersData.length; i++) {
-    //   let usd = usersData[i]
-    //   if (usd.username == username) {
-    //     if (usd.password == password) {
-    //       dispatch({
-    //         type: USER_LOGIN
-    //       })
-    //       AsyncStorage.setItem('user', username)
-    //       let user = AsyncStorage.getItem('user')
-    //       console.log('user: ' + user);
-    //       return
-    //     } else {
-    //       alert('Wrong password')
-    //     }
-    //     return
-    //   }
-    // }
-    // for (let i = 0; i < usersData.length; i++) {
-    //   let usd = usersData[i]
-    //   if (usd.username != username) {
-    //     alert('User not registered')
-    //     return
-    //   }
-    // }
-
   }
 }
 
@@ -79,32 +56,33 @@ export const userLogout = () => {
 }
 
 export const userState = () => {
-  return async (dispatch) => {
-    let user = await AsyncStorage.getItem('user')
-    // console.log(user);
-    if (user !== null) {
-      console.log('user: ' + user);
-      dispatch({
-        type: USER_LOGIN
-      })
-    } else {
-      console.log('user logout');
-      dispatch({
-        type: USER_LOGOUT
-      })
-    }
+  return (dispatch) => {
+    getStorage(usrt).then(e => {
+      console.log(e);
+      if (e.user != null) {
+        dispatch({
+          type: USER_LOGIN
+        })
+      } else {
+        console.log('user logout');
+        dispatch({
+          type: USER_LOGOUT
+        })
+      }
+    })
 
   }
 }
 export const getUserList = () => {
   return (dispatch) => {
-    AsyncStorage.getItem('usersData')
+    getStorage(usrd)
       .then(e => {
-        var userData = JSON.parse(e)
+        console.log(e);
+        let data = e
         dispatch({
           type: GET_USER_LIST,
           payload: {
-            data: userData
+            data: data
           }
         })
       })

@@ -76,6 +76,7 @@ const mapStateToProps = (state) => {
     getPhotoList: state.data.getPhotoList,
     getAlbumList: state.data.getAlbumList,
     getAlbumSql: state.data.getAlbumSql,
+    getUserList: state.data.getUserList,
   }
 }
 const mapDispatchToProps = (dispatch) => {

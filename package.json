@@ -23,6 +23,7 @@
     "crypto-js": "^3.3.0",
     "react": "16.13.1",
     "react-native": "0.63.2",
+    "react-native-device-info": "^6.0.4",
     "react-native-elements": "^2.3.2",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-paper": "^4.1.0",

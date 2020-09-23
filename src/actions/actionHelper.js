@@ -34,7 +34,7 @@ export const saveStorage = (key, value) => {
     AsyncStorage.setItem(key, data)
 }
 
-export const checkUser = (username, password) => {
+export const checkUser = (username, password, login) => {
     if (username === '' || password === '') {
         return
     }
@@ -47,7 +47,7 @@ export const checkUser = (username, password) => {
                     if (user.username === username) {
                         result = '';
                         if (password) {
-                            if (user.password === password) {                               
+                            if (user.password === password) {
                                 return result = 'match'
                             }
                         }

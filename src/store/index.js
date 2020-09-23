@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const persistConfig = {
   key: 'user',
   storage: AsyncStorage,
-  whitelist: ['user']
+  blacklist: ['user', 'data']
 };
 const presistedReducer = persistReducer(persistConfig, reducer);
 const store = createStore(presistedReducer, applyMiddleware(thunk));
