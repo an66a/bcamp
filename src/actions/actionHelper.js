@@ -8,7 +8,7 @@ export const usrt = 'userToken'; //AsyncStorage userToken
 
 export const checkUserData = () => {
     return () => {
-        getStorage(usrt)
+        getStorage(usrd)
             .then(e => { console.log(e); })
     }
 }
@@ -35,40 +35,49 @@ export const saveStorage = (key, value) => {
     AsyncStorage.setItem(key, data).catch(err => { console.log(err); })
 }
 
-export const createUserToken = async (username) => {
+const createUserToken = async (username) => {
     let deviceId = await getDeviceId();
     let fingerprint = await getFingerprint();
     let device = await getDevice();
     let uniqueId = await getUniqueId();
     let macaddress = await getMacAddress();
     let user = { user: { username, uid: { deviceId, fingerprint, uniqueId, macaddress, device } } }
-    return (
-        saveStorage(usrt, user)
-    )
+    saveStorage(usrt, user)
+}
+const createUser = (username, password) => {
+    getStorage(usrd).then(storage => {
+        storage.push({ username, password })
+        saveStorage(usrd, storage)
+    })
 }
 
-export const checkUser = (username, password, method) => {
+export const authWorker = (username, password, method) => {
     if (username === '' || password === '') {
         return
     }
     return (
         getStorage(usrd)
             .then(e => {
-                let result = null;
+                let result = false;
                 for (let i = 0; i < e.length; i++) {
-                    let user = e[i]
+                    let user = e[i];
                     if (user.username === username) {
-                        result = true;
-                        if (password) {
+                        if (method === 'login') {
                             if (user.password === password) {
                                 createUserToken(username)
-                                return result = true;
+                                return result = 'succes';
                             }
                         }
-                        return
+                        result = true;
                     }
                 }
-                return result
+                if (method === 'register') {
+                    if (result === false) {
+                        createUser(username, password)
+                        return result = 'succes';
+                    }
+                }
+                return result;
             })
     )
 }

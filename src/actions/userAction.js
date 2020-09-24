@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import { Alert } from "react-native";
-import { getStorage, saveStorage, checkUser, usrd, usrt } from './actionHelper';
-import { getFingerprint, getDevice, getDeviceId, getUniqueId, getMacAddress } from 'react-native-device-info';
+import { getStorage, authWorker, usrd, usrt } from './actionHelper';
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
@@ -9,34 +8,35 @@ export const GET_USER_LIST = 'GET_USER_LIST';
 
 export const userSignUp = (username, password) => {
   return () => {
-    checkUser(username)
+    authWorker(username, password, 'register')
       .then(e => {
-        if (e !== null) {
-          return alert('Username already registered.');
+        console.log(e);
+        if (e === 'succes') {
+          Alert.alert('Registration Succes', 'Welcome ' + username, [{
+            text: "close", style: "cancel"
+          }])
         }
-        getStorage(usrd)
-          .then(storage => {
-            const user = { username, password }
-            storage.push(user)
-            saveStorage(usrd, storage)
-            Alert.alert('Registration Succes', 'Welcome ' + username, [{
-              text: "close", style: "cancel"
-            }])
-          })
+        else {
+          alert('Username already registered.')
+        }
       })
   }
 }
 
 export const userLogin = (username, password) => {
   return (dispatch) => {
-    checkUser(username, password)
+    authWorker(username, password, 'login')
       .then(e => {
-        if (e !== true) {
-          return alert('Wrong password.')
+        // console.log(e);
+        if (e === 'succes') {
+          dispatch({
+            type: USER_LOGIN
+          })
+        } else if (e === true) {
+          alert('Wrong Password.')
+        } else {
+          alert('User not found.')
         }
-        dispatch({
-          type: USER_LOGIN
-        })
       })
   }
 }
