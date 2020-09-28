@@ -11,12 +11,12 @@ const LoginScreen = ({ navigation }) => {
 }
 const RegisterScreen = ({ navigation }) => {
     return (
-        <AuthComp hidepass register nav={navigation} />
+        <AuthComp hidepass repass register nav={navigation} />
     )
 }
-const AuthScreen = () => {
-    return (
-        <Tabs.Navigator tabBarPosition='none' swipeEnabled={false}>
+const AuthScreen = () => {  
+    return (        
+        <Tabs.Navigator tabBarPosition='none' swipeEnabled={true}>
             <Tabs.Screen name='Login' component={LoginScreen} />
             <Tabs.Screen name='Register' component={RegisterScreen} />
         </Tabs.Navigator>

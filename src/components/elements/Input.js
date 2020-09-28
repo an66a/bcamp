@@ -2,9 +2,26 @@ import React from 'react'
 import { StyleSheet, View, TextInput } from 'react-native';
 
 const Input = (props) => {
+
+    let inputWidth;
+    if (props.inputWidth === undefined) { inputWidth = '80%' }
     return (
-        <View style={styles.inputView} >
+        <View style={{
+            width: inputWidth,
+            backgroundColor: 'white',
+            borderRadius: 25,
+            height: 50,
+            marginBottom: 20,
+            justifyContent: 'center',
+            padding: 20,
+            marginTop: props.mt
+        }} >
             <TextInput
+                editable={props.editable}
+                multiline={props.multiline}
+                textAlign={props.textAlign}
+                keyboardType={props.keyboardType}
+                numberOfLines={4}
                 style={styles.inputText}
                 value={props.value}
                 secureTextEntry={props.scr}
@@ -14,19 +31,13 @@ const Input = (props) => {
         </View>
     )
 }
+
 const styles = StyleSheet.create({
-    inputView: {
-        width: '80%',
-        backgroundColor: 'white',
-        borderRadius: 25,
-        height: 50,
-        marginBottom: 20,
-        justifyContent: 'center',
-        padding: 20
-    },
     inputText: {
         height: 50,
         color: 'gray',
+        fontSize: 15
+
 
     }
 })

@@ -44,11 +44,11 @@ const createUserToken = async (username) => {
     let user = { user: { username, uid: { deviceId, fingerprint, uniqueId, macaddress, device } } }
     saveStorage(usrt, user)
 }
-const createUser = (username, password) => {
-    getStorage(usrd).then(storage => {
-        storage.push({ username, password })
-        saveStorage(usrd, storage)
-    })
+
+const createNewUser = async (username, password) => {
+    let storage = await getStorage(usrd)
+    storage.push({ username, password })
+    saveStorage(usrd, storage)
 }
 
 export const authWorker = (username, password, method) => {
@@ -73,7 +73,7 @@ export const authWorker = (username, password, method) => {
                 }
                 if (method === 'register') {
                     if (result === false) {
-                        createUser(username, password)
+                        createNewUser(username, password)
                         return result = 'succes';
                     }
                 }

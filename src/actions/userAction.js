@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-community/async-storage";
+import { save } from "@react-native-community/cameraroll";
 import { Alert } from "react-native";
-import { getStorage, authWorker, usrd, usrt } from './actionHelper';
+import { saveStorage, getStorage, authWorker, usrd, usrt } from './actionHelper';
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
@@ -10,7 +11,7 @@ export const userSignUp = (username, password) => {
   return () => {
     authWorker(username, password, 'register')
       .then(e => {
-        console.log(e);
+        // console.log(e);
         if (e === 'succes') {
           Alert.alert('Registration Succes', 'Welcome ' + username, [{
             text: "close", style: "cancel"
@@ -53,7 +54,7 @@ export const userLogout = () => {
 export const userState = () => {
   return (dispatch) => {
     getStorage(usrt).then(e => {
-      console.log(e);
+      // console.log(e);
       if (e.user != null) {
         dispatch({
           type: USER_LOGIN
@@ -78,6 +79,28 @@ export const getUserList = () => {
             data: e
           }
         })
+      })
+  }
+}
+
+export const updateUser = (id, data) => {
+  return async (dispatch) => {
+    console.log(id + '  data=', data);
+    getStorage(usrd)
+      .then(e => {
+        e.splice(id, 1)
+        e.push(data)
+        saveStorage(usrd, e)
+      })
+  }
+}
+export const deleteUser = (id) => {
+  return () => {
+    console.log(id);
+    getStorage(usrd)
+      .then(e => {
+        e.splice(id, 1)
+        saveStorage(usrd, e)
       })
   }
 }

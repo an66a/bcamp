@@ -19,9 +19,10 @@ class AlbumList extends Component {
     }
     componentDidMount() {
         this.setState({ isLoading: true }, this.getData)
+        // this.props.getPhotoList();
     }
     componentWillUnmount() {
-        this.props.unMount();
+        // this.props.unMount();
         this.setState({list: null})
     }
     getData = () => {
@@ -43,7 +44,7 @@ class AlbumList extends Component {
     //   }
     toPhotoList = (id) => {
         this.props.getPhotoList(id);
-        this.props.navigation.navigate('Photo')
+        this.props.navigation.navigate('Photo',{id})
     }
     renderRow = ({ item }) => {
         return (

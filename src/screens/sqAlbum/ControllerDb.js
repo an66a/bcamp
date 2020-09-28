@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, SafeAreaView, Button, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { userState } from '../../actions/userAction'
+import { getPhotoByAlbumId } from '../../actions/dataAction'
 
 const ControllerDb = ({ navigation }) => {
     
@@ -41,7 +42,7 @@ const insertDb = async () => {
         }
     }
     const deleteDb = async (id) => {
-        await exeQuery('DELETE FROM album_list');
+        await exeQuery('DELETE FROM photo_list');
         // await this.ExecuteQuery('DELETE FROM album_list WHERE id = ?', [id]);
         console.log('SQL deleted');
         alert('Album SQL deleted')
@@ -68,7 +69,7 @@ const insertDb = async () => {
 
             <Button
                 title="Reload"
-                onPress={() => dispatch(userState())}
+                onPress={() => dispatch(getPhotoByAlbumId(1))}
             />
             </View>
            

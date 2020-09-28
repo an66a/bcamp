@@ -2,20 +2,27 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, FlatList, StyleSheet, Text, ActivityIndicator } from 'react-native'
 import { Image } from 'react-native-elements'
+import { getPhotoList, unMount} from '../../actions/dataAction'
 
 class PhotoList extends Component {
     state = {
         page: 1,
-        isLoading: false
+        isLoading: false,
+        data: null
     }
     // handleLoadMore = () => {
     //     this.setState({ page: this.state.page + 1, isLoading: true }, this.getData)
     // }
+    componentWillUnmount() {
+        // this.props.unMount()
+    }
     renderRow = ({ item }) => {
+        // console.log(item);
+        let url = item.url
         return (
 
             <View style={styles.itemRow}>
-                <Image source={{uri: item.url}} style={styles.itemImg} />
+                <Image source={{ uri: url }} style={styles.itemImg} />
                 <Text style={styles.itemText}>{item.id}. {item.title}</Text>
             </View>
         )
@@ -29,10 +36,11 @@ class PhotoList extends Component {
         )
     }
     render() {
+        // console.log(this.state);
         return (
             <FlatList
                 style={styles.container}
-                data={this.props.getPhotoList}
+                data={this.props.PhotoList}
                 renderItem={this.renderRow}
                 keyExtractor={(item, index) => index.toString()}
                 onEndReached={this.handleLoadMore}
@@ -69,7 +77,13 @@ const styles = StyleSheet.create({
 })
 const mapStateToProps = (state) => {
     return {
-        getPhotoList: state.data.getPhotoList
+        PhotoList: state.data.getPhotoList
     }
 }
-export default connect(mapStateToProps, null)(PhotoList)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        unMount: () => dispatch(unMount()),
+        getPhotoList: (id) => dispatch(getPhotoList(id)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PhotoList)
