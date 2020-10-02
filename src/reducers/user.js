@@ -1,4 +1,4 @@
-import { GET_USER_LIST, USER_LOGIN, USER_LOGOUT } from '../actions/userAction'
+import { GET_USER_LIST, GET_USER_DETAIL, USER_LOGIN, USER_LOGOUT } from '../actions/userAction'
 
 initialState = {
   isLogin: false,
@@ -23,6 +23,11 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         getUserList: action.payload.data
+      }
+    case GET_USER_DETAIL:
+      return {
+        ...state,
+        getUserDetail: action.payload.data
       }
     default:
       return state

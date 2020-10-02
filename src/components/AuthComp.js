@@ -9,7 +9,8 @@ const AuthComp = (props) => {
     initialState = {
         username: '',
         password: '',
-        repassword: '',    
+        repassword: '', 
+        showUsers: false   
       }
     const [state, set] = useState(initialState);
     const { username, password, repassword } = state;

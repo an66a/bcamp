@@ -3,21 +3,20 @@ import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity, Alert } from 'r
 import Input from '../../components/elements/Input'
 import { useDispatch } from 'react-redux';
 import { Avatar, Accessory } from 'react-native-elements';
-import { deleteUser, getUserList, updateUser } from '../../actions//userAction';
+import { deleteUser, getUserList, updateUserAccount } from '../../actions//userAction';
 import ImagePicker from 'react-native-image-picker';
 
 
 
 const UserListProfile = ({ navigation, route }) => {
-    // console.log(route);
+
     const dispatch = useDispatch()
-    // console.log(route.params);
+
     const userId = route.params.id
-    // console.log(userId);
+
     const [state, set] = useState(route.params.item)
     const [editable, setEdit] = useState(false)
     const [btnEdit, setBtn] = useState('Edit User Account')
-    // console.log(state);
 
     const toggleEdit = () => {
         if (editable === false) {
@@ -31,7 +30,7 @@ const UserListProfile = ({ navigation, route }) => {
         }
     }
     const doUpdate = () => {
-        dispatch(updateUser(userId, state))
+        dispatch(updateUserAccount(userId, state))
     }
     const doDelete = () => {
         Alert.alert(
@@ -42,7 +41,7 @@ const UserListProfile = ({ navigation, route }) => {
                     text: "Cancel",
                     style: "cancel",
                 },
-                { text: "OK", onPress: () => dispatch(deleteUser(userId), navigation.goBack(), alert('User delelted.')) }
+                { text: "OK", onPress: () => dispatch(deleteUser(userId), navigation.goBack(), alert('User deleted.')) }
             ],
             { cancelable: false }
         );
@@ -67,8 +66,9 @@ const UserListProfile = ({ navigation, route }) => {
                 const source = response.uri
                 // console.log(source);
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-                set({ ...state, url: source })
-                console.log(state);
+                set({ ...state, url: source }, doUpdate())
+                // console.log(state);
+
             }
         });
     }

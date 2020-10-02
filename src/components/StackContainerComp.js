@@ -1,12 +1,7 @@
 
 import React, { Component } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useDispatch } from 'react-redux';
-import { userLogout } from '../actions/userAction';
 import { Icon } from 'react-native-elements';
-import ImagePicker from 'react-native-image-picker';
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-import { View, Text } from 'react-native';
 import RightHeader from './elements/rightHeader';
 
 const Stack = createStackNavigator();

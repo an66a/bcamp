@@ -1,14 +1,15 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import CryptoJS from 'crypto-js';
-import { getFingerprint, getDevice, getDeviceId, getUniqueId, getMacAddress } from 'react-native-device-info';
+// import { getFingerprint, getDevice, getDeviceId, getUniqueId, getMacAddress } from 'react-native-device-info';
 
 const cryptoKey = 'keep-it-a-secret'; //Crypto Key
 export const usrd = 'usersData'; //AsyncStorage usersData
+export const usra = 'usersAccount'; //AsyncStorage usersAccount
 export const usrt = 'userToken'; //AsyncStorage userToken
 
 export const checkUserData = () => {
     return () => {
-        getStorage(usrd)
+        getStorage(usra)
             .then(e => { console.log(e); })
     }
 }
@@ -21,7 +22,7 @@ export const getStorage = (key) => {
                 if (e !== null) {
                     const decrypted = CryptoJS.AES.decrypt(e, cryptoKey);
                     const data = decrypted.toString(CryptoJS.enc.Utf8);
-                    storage = JSON.parse(data)
+                    storage = JSON.parse(data) 
                 }
                 return storage
             })
@@ -35,37 +36,34 @@ export const saveStorage = (key, value) => {
     AsyncStorage.setItem(key, data).catch(err => { console.log(err); })
 }
 
-const createUserToken = async (username) => {
-    let deviceId = await getDeviceId();
-    let fingerprint = await getFingerprint();
-    let device = await getDevice();
-    let uniqueId = await getUniqueId();
-    let macaddress = await getMacAddress();
-    let user = { user: { username, uid: { deviceId, fingerprint, uniqueId, macaddress, device } } }
-    saveStorage(usrt, user)
+const createUserToken = (uid) => {
+    saveStorage(usrt, uid)
 }
 
-const createNewUser = async (username, password) => {
-    let storage = await getStorage(usrd)
-    storage.push({ username, password })
-    saveStorage(usrd, storage)
+const createUserAccount = async (username, password, uid) => {
+    const storage = await getStorage(usra)
+    storage.push({ username, password, uid })
+    saveStorage(usra, storage)
 }
 
-export const authWorker = (username, password, method) => {
+export const authWorker = async (username, password, uid, method) => {
     if (username === '' || password === '') {
         return
     }
     return (
-        getStorage(usrd)
+        getStorage(usra)
             .then(e => {
+                console.log('authworker', e);
                 let result = false;
                 for (let i = 0; i < e.length; i++) {
                     let user = e[i];
                     if (user.username === username) {
                         if (method === 'login') {
                             if (user.password === password) {
-                                createUserToken(username)
-                                return result = 'succes';
+                                // console.log(user.uid);
+                                createUserToken(user.uid)
+                                result = 'succes';
+                                break
                             }
                         }
                         result = true;
@@ -73,8 +71,8 @@ export const authWorker = (username, password, method) => {
                 }
                 if (method === 'register') {
                     if (result === false) {
-                        createNewUser(username, password)
-                        return result = 'succes';
+                        createUserAccount(username, password, uid)
+                        result = 'succes';
                     }
                 }
                 return result;

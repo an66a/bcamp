@@ -1,27 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Input from '../../components/elements/Input'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Accessory } from 'react-native-elements';
+import { getUserDetail } from '../../actions/userAction'
+import LoadingScreen from '../SplashScreen';
 
+const wait = (timeout) => {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
 
 const Profile = (props) => {
+    const dispatch = useDispatch()
+    const [state, setState] = useState()
+    useEffect(() => {
+        // dispatch(getUserDetail())
+        wait(3000).then(() => dispatch(getUserDetail()));
+    }, [])
+    const profile = useSelector(state => state.user.getUserDetail)
+    console.log(profile);
+    // console.log(state);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={{marginTop: 15}}>
-                <Avatar
-                    size="xlarge"
-                    rounded
-                    source={{
-                        uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                    }}
-                />
+        profile ?
+            <SafeAreaView style={styles.container}>
+                <View style={{ marginTop: 15 }}>
+                    <Avatar
+                        size="xlarge"
+                        rounded
+                        source={{
+                            uri: profile.url,
+                        }}
+                    />
+                </View>
+                <View >
+                    <Text style={styles.logo}>{profile.username}</Text>
             </View>
-            <Input mt={20} />
-            <Input />
+            </SafeAreaView>
+            : null
 
-        </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
@@ -29,6 +48,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#00ffc3',
         alignItems: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         // justifyContent: 'center',
     },
     marginB: {

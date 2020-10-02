@@ -5,9 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserList } from '../../actions/userAction'
 import { Avatar, Accessory } from 'react-native-elements';
 
-
-
-
 const wait = (timeout) => {
     return new Promise(resolve => {
         setTimeout(resolve, timeout);
@@ -16,7 +13,6 @@ const wait = (timeout) => {
 
 const UserList = (props) => {
     // console.log(props);
-
     const dispatch = useDispatch()
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -41,7 +37,7 @@ const UserList = (props) => {
         const item = props.item
         // console.log(item);
         return (
-            <TouchableOpacity delayLongPress={1000} onLongPress={() => toProfile(props.index, item)} >
+            <TouchableOpacity delayLongPress={500} onLongPress={() => toProfile(props.index, item)} >
                 <View style={{ flex: 1, flexDirection: 'row', borderBottomColor: 'grey', borderBottomWidth: 1, padding: 15 }}>
                     <View>
                         <Avatar

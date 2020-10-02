@@ -4,12 +4,9 @@ import { AlbumList, PhotoList } from './album/';
 import UserList from './userlist/UserList';
 import Profile from '../screens/profile/Proflle';
 import { AlbumSQL, PhotoSQL, CreateAlbum, AddPhotoSQL } from './sqAlbum';
-import ControllerDb from './sqAlbum/ControllerDb';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import UserListProfile from './userlist/UserListProfile'
 import Debug from './Debug'
 
-const Tabs = createMaterialTopTabNavigator();
 
 const AlbumScreen = ({ navigation }) => {
     const stack = [
@@ -52,20 +49,6 @@ const UserProfile = ({ navigation }) => {
     ]
     return (
         <StackContainerComp navigation={navigation} stack={stack} />
-    )
-}
-
-const AlbumSQLTab = () => {
-    return (
-        <Tabs.Navigator swipeEnabled={true} tabBarPosition='top' backBehavior='none'
-            tabBarOptions={{
-                showIcon: true,
-                showLabel: true
-            }}
-        >
-            <Tabs.Screen name='Album Test' component={AlbumSQL} options={{ title: 'Album' }} />
-            <Tabs.Screen name='Controller DB' component={ControllerDb} options={{ title: 'Settings' }} />
-        </Tabs.Navigator>
     )
 }
 

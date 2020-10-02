@@ -21,7 +21,7 @@ const Input = (props) => {
                 multiline={props.multiline}
                 textAlign={props.textAlign}
                 keyboardType={props.keyboardType}
-                numberOfLines={4}
+                numberOfLines={props.numberOfLines}
                 style={styles.inputText}
                 value={props.value}
                 secureTextEntry={props.scr}
@@ -34,7 +34,7 @@ const Input = (props) => {
 
 const styles = StyleSheet.create({
     inputText: {
-        height: 50,
+        height: 150,
         color: 'gray',
         fontSize: 15
 

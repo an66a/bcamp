@@ -30,9 +30,6 @@ const CustomDrawer = (props) => {
           drawerIcon={<Icon name='menu' size={25} />}
           onPress={() => dispatch(userLogout())}
           icon={() => <Icon name='sign-out' type='font-awesome' style={{transform: [{rotateY: '180deg'}]}} />}
-        // options={{
-        //   drawerIcon: () => (<Icon name='menu' size={25} />)
-        // }}
         />
       </View>
     </DrawerContentScrollView>
@@ -45,7 +42,7 @@ class MainApp extends Component {
     this.props.insertPhotoSql();
   }
   render() {
-    console.log(this.props);
+    // console.log(this.props);
 
     if (this.props.isLoading) {
       return <SplashScreen />;
@@ -54,10 +51,9 @@ class MainApp extends Component {
       <NavigationContainer>
         {this.props.isLogin ? (
           <Drawer.Navigator
-            initialRouteName='UserListScreen'
+            initialRouteName='UserProfile'
             drawerType='slide'
             drawerContent={(props) => <CustomDrawer {...props} />}
-
           >
             <Drawer.Screen
               name='UserProfile'
@@ -81,11 +77,6 @@ class MainApp extends Component {
               name='AlbumScreenSQL'
               component={AlbumScreenSQL}
               options={{ title: 'Album List SQL', drawerIcon: () => (<Icon name='picture-o' type='font-awesome'  size={25} />) }}
-            />
-            <Drawer.Screen
-              name='Debug'
-              component={DebugScreen}
-              options={{ title: 'DebugScreen', drawerIcon: () => (<Icon name='menu' size={25} />) }}
             />
 
           </Drawer.Navigator>

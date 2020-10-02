@@ -65,7 +65,7 @@ const AlbumSQL = (props) => {
     const renderRow = ({ item }) => {
         return (
             <View style={styles.itemRow}>
-                <TouchableOpacity delayLongPress={1000} onPress={() => toPhotoList(item.id)} onLongPress={() => setAlbum({ id: item.id, title: item.title }, setVisible(true))}>
+                <TouchableOpacity delayLongPress={500} onPress={() => toPhotoList(item.id)} onLongPress={() => setAlbum({ id: item.id, title: item.title }, setVisible(true))}>
                     <Text style={styles.itemText}>{item.title}</Text>
                 </TouchableOpacity>
             </View>
